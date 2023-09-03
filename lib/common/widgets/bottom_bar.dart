@@ -62,7 +62,7 @@ class _BottomBarState extends State<BottomBar> {
                 Icons.home_outlined,
               ),
             ),
-            label: '',
+            label: 'Home',
           ),
           //PROFILE
           BottomNavigationBarItem(
@@ -82,7 +82,7 @@ class _BottomBarState extends State<BottomBar> {
                 Icons.person_outline_outlined,
               ),
             ),
-            label: '',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Container(
@@ -106,7 +106,7 @@ class _BottomBarState extends State<BottomBar> {
                 ),
               ),
             ),
-            label: '',
+            label: 'Cart',
           ),
         ],
       ),
