@@ -74,7 +74,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
                       childAspectRatio: 1.4,
-                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
                       final product = productList![index];
@@ -101,6 +101,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                                   padding: const EdgeInsets.all(10),
                                   child: Image.network(
                                     product.images[0],
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ),
