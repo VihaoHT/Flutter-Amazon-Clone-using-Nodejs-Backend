@@ -49,14 +49,15 @@ class AdminServices {
         },
         body: product.toJson(),
       );
-
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            showSnackBar(context, 'Post Succesful!');
-            Navigator.pop(context);
-          });
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: () {
+              showSnackBar(context, 'Post Succesful!');
+              Navigator.pop(context);
+            });
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -73,21 +74,23 @@ class AdminServices {
         'x-auth-token': userProvider.user.token,
       });
 
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
-              Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            for (int i = 0; i < jsonDecode(res.body).length; i++) {
+              productList.add(
+                Product.fromJson(
+                  jsonEncode(
+                    jsonDecode(res.body)[i],
+                  ),
                 ),
-              ),
-            );
-          }
-        },
-      );
+              );
+            }
+          },
+        );
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -112,14 +115,15 @@ class AdminServices {
           'id': product.id,
         }),
       );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          onSuccess();
-        },
-      );
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            onSuccess();
+          },
+        );
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }

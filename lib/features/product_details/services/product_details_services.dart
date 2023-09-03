@@ -28,12 +28,13 @@ class ProductDetailsServices {
           'rating': rating,
         }),
       );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {},
-      );
+      if (context.mounted) {
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {},
+        );
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }

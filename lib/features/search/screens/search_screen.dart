@@ -108,7 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 margin: const EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.mic,
                   color: Colors.black,
                   size: 25,
