@@ -51,6 +51,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
+  void addToCart() {
+    productDetailsServices.addToCart(context: context, product: widget.product);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +148,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   Text(
                     widget.product.id!,
                   ),
-                   Stars(rating: avgRating,),
+                  Stars(
+                    rating: avgRating,
+                  ),
                 ],
               ),
             ),
@@ -223,7 +229,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: CustomButton(
                 text: 'Add to Cart',
                 color: const Color.fromRGBO(254, 216, 16, 1),
-                onTap: () {},
+                onTap: addToCart,
               ),
             ),
             Container(
