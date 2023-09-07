@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/common/widgets/loader.dart';
 import 'package:flutter_amazon_clone/features/admin/screens/add_product_screen.dart';
+import 'package:flutter_amazon_clone/features/admin/screens/edit_product_screen.dart';
 import 'package:flutter_amazon_clone/features/admin/services/admin_services.dart';
 import 'package:flutter_amazon_clone/features/profile/widgets/single_product.dart';
 import 'package:flutter_amazon_clone/models/product.dart';
@@ -26,7 +27,7 @@ class _PostsScreenState extends State<PostsScreen> {
     setState(() {});
   }
 
-   void deleteProduct(Product product, int index) {
+  void deleteProduct(Product product, int index) {
     adminServices.deleteProduct(
       context: context,
       product: product,
@@ -71,7 +72,18 @@ class _PostsScreenState extends State<PostsScreen> {
                             ),
                           ),
                           IconButton(
-                            onPressed:() => deleteProduct(productData,index),
+                            onPressed: () {
+                              final itemId = productData.id;
+                              Navigator.pushNamed(
+                                  context, EditProductScreen.routeName,
+                                  arguments: itemId);
+                            },
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => deleteProduct(productData, index),
                             icon: const Icon(
                               Icons.delete_outline,
                             ),

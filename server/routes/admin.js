@@ -43,4 +43,20 @@ adminRouter.post("/admin/delete-product", admin, async (req, res) => {
   }
 });
 
+
+// update the product
+adminRouter.put("/admin/update-product/:id", admin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body);
+    if(!product){
+      return res.status(400).json({message: `cannot find the product with this id`} )
+    }
+    const updateProduct = await Product.findById(id);
+    res.json(updateProduct)
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = adminRouter;

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/constants/error_handling.dart';
@@ -33,6 +32,7 @@ class AdminServices {
         imageUrls.add(res.secureUrl);
       }
       Product product = Product(
+        id: '',
         name: name,
         description: description,
         quantity: quantity,
@@ -97,6 +97,7 @@ class AdminServices {
     return productList;
   }
 
+  //delete product
   void deleteProduct({
     required BuildContext context,
     required Product product,
@@ -126,6 +127,50 @@ class AdminServices {
       }
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  //update product
+  Future<Product> updateProduct(
+    BuildContext context,
+    String name,
+    String description,
+    String category,
+    String id,
+    double price,
+    double quantity,
+  ) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final response = await http.put(
+      Uri.parse('$uri/admin/update-product/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      },
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'description': description,
+        'category': category,
+        'price': price.toString(),
+        'quantity': quantity.toString(),
+      }),
+    );
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      if (context.mounted) {
+        showSnackBar(context, 'Update Succesful');
+        Navigator.pop(context);
+      }
+      return Product.fromJson(
+        jsonDecode(
+          response.body,
+        ),
+      );
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to update data.');
     }
   }
 }
